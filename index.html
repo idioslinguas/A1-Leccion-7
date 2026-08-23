@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>idíoslinguas - Prepositions of Place & Sentence Builder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            min-height: 100vh;
+        }
+        .font-fun {
+            font-family: 'Fredoka', cursive;
+        }
+        .card-bounce {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-bounce:hover {
+            transform: translateY(-6px) scale(1.01);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.12), 0 8px 10px -6px rgba(79, 70, 229, 0.08);
+        }
+        .glow-button {
+            box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+            transition: all 0.2s ease-in-out;
+        }
+        .glow-button:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+            transform: translateY(-2px);
+        }
+        .word-chip {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+        .word-chip:hover {
+            transform: translateY(-2px) scale(1.04);
+        }
+        .word-chip:active {
+            transform: scale(0.95);
+        }
+        .dropzone-empty {
+            border: 2px dashed #cbd5e1;
+            background-color: #f8fafc;
+        }
+        .dropzone-active {
+            border: 2px dashed #818cf8;
+            background-color: #eef2ff;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <!-- TOP BAR / HEADER -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-indigo-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <!-- Official idíoslinguas Logo Icon -->
+                <div class="relative w-12 h-12 flex-shrink-0 flex items-center justify-center">
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm">
+                        <!-- Orbit Rings -->
+                        <path d="M 30,115 C 15,55 80,15 150,28 C 182,34 192,62 170,82 C 138,112 45,152 30,115 Z" fill="none" stroke="#e63946" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M 162,38 C 188,68 182,132 142,168 C 100,202 38,172 48,130" fill="none" stroke="#ffb703" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M 38,138 C 58,182 122,188 162,152" fill="none" stroke="#2a9d8f" stroke-width="7" stroke-linecap="round"/>
+                        
+                        <!-- Globe Lines -->
+                        <circle cx="100" cy="95" r="50" fill="none" stroke="#0077b6" stroke-width="5"/>
+                        <ellipse cx="100" cy="95" rx="24" ry="50" fill="none" stroke="#0077b6" stroke-width="3"/>
+                        <line x1="50" y1="95" x2="150" y2="95" stroke="#0077b6" stroke-width="3"/>
+                        <line x1="60" y1="70" x2="140" y2="70" stroke="#0077b6" stroke-width="2"/>
+                        <line x1="60" y1="120" x2="140" y2="120" stroke="#0077b6" stroke-width="2"/>
+                        
+                        <!-- US Flag Accent badge inside globe -->
+                        <rect x="110" y="58" width="22" height="14" rx="2" fill="#b71c1c"/>
+                        <path d="M 110,58 H 121 V 65 H 110 Z" fill="#0d47a1"/>
+                        <line x1="110" y1="62" x2="132" y2="62" stroke="#ffffff" stroke-width="1.5"/>
+                        <line x1="110" y1="66" x2="132" y2="66" stroke="#ffffff" stroke-width="1.5"/>
+                        <line x1="110" y1="70" x2="132" y2="70" stroke="#ffffff" stroke-width="1.5"/>
+
+                        <!-- Speech Bubbles 'i' & 'l' -->
+                        <path d="M 70,68 A 22,22 0 1 1 95,103 L 85,113 L 88,100 A 22,22 0 0 1 70,68 Z" fill="#0077b6"/>
+                        <text x="82" y="91" font-family="'Fredoka', sans-serif" font-weight="bold" font-size="22" fill="#ffffff" text-anchor="middle">i</text>
+                        
+                        <path d="M 125,88 A 20,20 0 1 1 145,120 L 142,128 L 134,119 A 20,20 0 0 1 125,88 Z" fill="#2a9d8f"/>
+                        <text x="127" y="110" font-family="'Fredoka', sans-serif" font-weight="bold" font-size="18" fill="#ffffff" text-anchor="middle">l</text>
+                    </svg>
+                </div>
+                <!-- Brand Typography -->
+                <div class="flex flex-col">
+                    <div class="flex items-center text-2xl font-extrabold tracking-tight text-[#16467d] leading-none font-fun">
+                        <span>idíos</span><span class="text-[#1e5899] relative">linguas<span class="absolute -top-1.5 right-12 text-emerald-500 text-xs">🍃</span></span>
+                    </div>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold text-[#16467d] tracking-[0.2em] uppercase mt-1">
+                        • ACADEMIA DE IDIOMAS •
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="flex items-center space-x-3 sm:space-x-4 bg-slate-50 px-3 sm:px-4 py-2 rounded-2xl border border-slate-200/80">
+                <div class="flex items-center space-x-1.5" title="Puntos XP">
+                    <i class="fa-solid fa-bolt text-amber-500 text-lg"></i>
+                    <span id="user-xp" class="font-bold text-slate-800">0</span>
+                    <span class="text-xs font-semibold text-slate-400">XP</span>
+                </div>
+                <div class="h-4 w-px bg-slate-300"></div>
+                <div class="flex items-center space-x-1.5" title="Racha">
+                    <i class="fa-solid fa-fire text-rose-500 text-lg"></i>
+                    <span id="user-streak" class="font-bold text-slate-800">1</span>
+                    <span class="text-xs font-semibold text-slate-400">Día</span>
+                </div>
+                <div class="h-4 w-px bg-slate-300"></div>
+                <div class="flex items-center space-x-1.5" title="Completados">
+                    <i class="fa-solid fa-trophy text-yellow-500 text-lg"></i>
+                    <span id="user-completed" class="font-bold text-slate-800">0/65</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 mt-6">
+
+        <!-- NAVIGATION TABS -->
+        <nav class="flex flex-wrap gap-2 mb-8 bg-white/70 p-1.5 rounded-2xl border border-indigo-100/80 shadow-sm">
+            <button onclick="switchTab('vocab')" id="tab-vocab" class="tab-btn flex-1 min-w-[120px] py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all bg-indigo-600 text-white shadow-md">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Vocabulario</span>
+            </button>
+            <button onclick="switchTab('grammar')" id="tab-grammar" class="tab-btn flex-1 min-w-[120px] py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all text-slate-600 hover:bg-slate-100">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Gramática</span>
+            </button>
+            <button onclick="switchTab('exercises')" id="tab-exercises" class="tab-btn flex-1 min-w-[120px] py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all text-slate-600 hover:bg-slate-100">
+                <i class="fa-solid fa-list-check"></i>
+                <span>50 Ejercicios</span>
+            </button>
+            <!-- CONSTRUIR ORACIONES (SENTENCE BUILDER) -->
+            <button onclick="switchTab('builder')" id="tab-builder" class="tab-btn flex-1 min-w-[140px] py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all text-slate-600 hover:bg-slate-100 relative">
+                <i class="fa-solid fa-puzzle-piece text-indigo-500"></i>
+                <span>Construir Oraciones</span>
+                <span class="absolute -top-1 -right-1 bg-amber-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full animate-pulse">NUEVO</span>
+            </button>
+            <button onclick="switchTab('reading')" id="tab-reading" class="tab-btn flex-1 min-w-[120px] py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all text-slate-600 hover:bg-slate-100">
+                <i class="fa-solid fa-glasses"></i>
+                <span>Lectura A1</span>
+            </button>
+        </nav>
+
+        <!-- SECTION 1: VOCABULARY -->
+        <section id="sec-vocab" class="tab-content block space-y-8">
+            <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Módulo 1</span>
+                <h2 class="text-2xl md:text-3xl font-fun font-bold mt-2">Preposiciones de Lugar y La Ciudad</h2>
+                <p class="text-indigo-100 mt-1 max-w-2xl text-sm md:text-base">Aprende las 11 prepositions de lugar indispensables y los lugares clave de la ciudad en nivel A1. Haz clic en el ícono de audio <i class="fa-solid fa-volume-high"></i> para escuchar.</p>
+            </div>
+
+            <!-- Prepositions Cards Grid -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-indigo-100 text-indigo-600 rounded-2xl">
+                        <i class="fa-solid fa-location-dot text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 font-fun">Las 11 Preposiciones de Lugar</h3>
+                        <p class="text-xs text-slate-500">Haz clic para escuchar la pronunciación y ver ejemplos visuales</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="prepositions-grid">
+                    <!-- Dynamic insert via JS -->
+                </div>
+            </div>
+
+            <!-- City Places Cards Grid -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 bg-emerald-100 text-emerald-600 rounded-2xl">
+                        <i class="fa-solid fa-city text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 font-fun">Lugares de la Ciudad (City Places - Level A1)</h3>
+                        <p class="text-xs text-slate-500">Vocabulario esencial para combinar con las preposiciones</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="city-places-grid">
+                    <!-- Dynamic insert via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: GRAMMAR -->
+        <section id="sec-grammar" class="tab-content hidden space-y-8">
+            <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl p-6 md:p-8 text-white shadow-xl">
+                <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Módulo 2</span>
+                <h2 class="text-2xl md:text-3xl font-fun font-bold mt-2">Reglas de Preposiciones de Lugar</h2>
+                <p class="text-purple-100 mt-1 max-w-2xl text-sm md:text-base">Aprende cuándo usar cada preposición con claridad y evita las confusiones más comunes en nivel A1.</p>
+            </div>
+
+            <!-- Rule Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- In vs On vs At -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="w-8 h-8 bg-indigo-600 text-white font-bold rounded-xl flex items-center justify-center">1</span>
+                            <h3 class="text-lg font-bold text-slate-800">IN (Dentro / En)</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">Se usa para espacios cerrados, contenedores, ciudades y países.</p>
+                        
+                        <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-3 space-y-1 text-xs font-semibold text-indigo-900">
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>in</strong> the supermarket (dentro del edificio)</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>in</strong> London / <strong>in</strong> Spain</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>in</strong> the box / <strong>in</strong> my bag</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                        💡 Piensa en tres dimensiones (dentro de algo).
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="w-8 h-8 bg-violet-600 text-white font-bold rounded-xl flex items-center justify-center">2</span>
+                            <h3 class="text-lg font-bold text-slate-800">ON (Sobre / En calle)</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">Se usa para superficies, pisos de un edificio y nombres de calles o avenidas.</p>
+                        
+                        <div class="bg-violet-50 border border-violet-100 rounded-2xl p-3 space-y-1 text-xs font-semibold text-violet-900">
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>on</strong> the table / <strong>on</strong> the wall</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>on</strong> Main Street / <strong>on</strong> 5th Avenue</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>on</strong> the second floor</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                        💡 Piensa en contacto físico sobre una superficie.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="w-8 h-8 bg-teal-600 text-white font-bold rounded-xl flex items-center justify-center">3</span>
+                            <h3 class="text-lg font-bold text-slate-800">AT (En un punto específico)</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">Se usa para direcciones exactas, puntos de encuentro o paradas.</p>
+                        
+                        <div class="bg-teal-50 border border-teal-100 rounded-2xl p-3 space-y-1 text-xs font-semibold text-teal-900">
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>at</strong> the bus stop / <strong>at</strong> the entrance</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>at</strong> 742 Evergreen Terrace</p>
+                            <p><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i><strong>at</strong> school / <strong>at</strong> work / <strong>at</strong> home</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                        💡 Piensa en una ubicación como un punto en un mapa.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Position Specific Comparison -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 font-fun">Comparativa de Posiciones Relativas</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div class="font-bold text-indigo-600 text-sm mb-1">Near vs Close to vs Nearby</div>
+                        <p class="text-xs text-slate-600"><strong>Near</strong> no lleva 'to' (<em>near the bank</em>). <strong>Close to</strong> exige 'to' (<em>close to the bank</em>). <strong>Nearby</strong> se usa al final o como adjetivo (<em>a nearby cafe</em>).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div class="font-bold text-indigo-600 text-sm mb-1">In front of vs Behind</div>
+                        <p class="text-xs text-slate-600"><strong>In front of</strong> significa enfrente o delante de (<em>in front of the school</em>). <strong>Behind</strong> significa detrás de (<em>behind the hospital</em>).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div class="font-bold text-indigo-600 text-sm mb-1">Over vs Under</div>
+                        <p class="text-xs text-slate-600"><strong>Over</strong> significa por encima o sobrevolando (<em>a bridge over the river</em>). <strong>Under</strong> significa debajo de (<em>the cat under the table</em>).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div class="font-bold text-indigo-600 text-sm mb-1">On the corner</div>
+                        <p class="text-xs text-slate-600">Se usa para intersecciones o esquinas de calles. Ejemplo: <em>The pharmacy is on the corner of 1st Street and Park Avenue.</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXERCISES (50 INTERACTIVE QUESTIONS) -->
+        <section id="sec-exercises" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-3xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Módulo 3</span>
+                    <h2 class="text-2xl md:text-3xl font-fun font-bold mt-2">Gran Desafío de 50 Ejercicios</h2>
+                    <p class="text-teal-100 mt-1 text-sm md:text-base">Practica todas las preposiciones de lugar en orden aleatorio. ¡Obtén 10 XP por cada acierto!</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="shuffleAndResetQuiz()" class="bg-white/20 hover:bg-white/30 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/20 text-xs font-bold transition flex items-center space-x-2 text-white">
+                        <i class="fa-solid fa-shuffle"></i>
+                        <span>Mezclar Preguntas</span>
+                    </button>
+                    <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 text-center min-w-[140px]">
+                        <span class="text-xs text-teal-100 font-semibold uppercase block">Progreso</span>
+                        <span id="quiz-progress-text" class="text-2xl font-bold font-fun">1 / 50</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Main Card -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 custom-shadow">
+                <!-- Question Header -->
+                <div class="flex items-center justify-between mb-4">
+                    <span id="q-category" class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold uppercase">Ejercicio A1</span>
+                    <span id="q-type-badge" class="text-xs text-slate-400 font-semibold">Opción múltiple</span>
+                </div>
+
+                <!-- Question Text -->
+                <h3 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 mb-1">Cargando pregunta...</h3>
+                <!-- Question Spanish Translation -->
+                <p id="q-trans" class="text-xs sm:text-sm text-slate-500 font-medium italic mb-6">Traducción...</p>
+
+                <!-- Dynamic Answer Area -->
+                <div id="q-answers-container" class="space-y-3 mb-6">
+                    <!-- Dynamic Buttons -->
+                </div>
+
+                <!-- Instant Feedback Alert -->
+                <div id="feedback-box" class="hidden p-4 rounded-2xl mb-6 text-sm font-semibold transition-all"></div>
+
+                <!-- Navigation Controls -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button id="btn-prev-q" onclick="prevQuestion()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition disabled:opacity-40">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Anterior
+                    </button>
+                    <span class="text-xs text-slate-400 font-semibold" id="q-counter-bottom">Pregunta 1 de 50</span>
+                    <button id="btn-next-q" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-sm glow-button transition">
+                        Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question Jump Grid -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow">
+                <h4 class="text-sm font-bold text-slate-700 mb-3 font-fun">Mapa de 50 Preguntas (Haz clic para saltar)</h4>
+                <div class="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 gap-2" id="question-dots-grid">
+                    <!-- Dots 1 to 50 JS generated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SENTENCE BUILDER (CONSTRUIR ORACIONES POR TRADUCCIÓN) -->
+        <section id="sec-builder" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Módulo 4 • Taller Interactivo</span>
+                    <h2 class="text-2xl md:text-3xl font-fun font-bold mt-2">Construcción de Oraciones (Translation Builder)</h2>
+                    <p class="text-purple-100 mt-1 text-sm md:text-base">Traduce la oración en español ordenando las fichas en inglés. ¡Gana 15 XP por cada oración perfecta!</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 text-center min-w-[140px]">
+                        <span class="text-xs text-purple-100 font-semibold uppercase block">Completados</span>
+                        <span id="builder-progress-text" class="text-2xl font-bold font-fun text-amber-300">1 / 15</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Builder Main Card -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 custom-shadow space-y-6">
+                <!-- Header Info -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-language"></i> Traducción A1
+                        </span>
+                        <span id="builder-prep-tag" class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-semibold">Preposición: next to</span>
+                    </div>
+                    <button onclick="speakBuilderPrompt()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-xl transition">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>Escuchar Enunciado</span>
+                    </button>
+                </div>
+
+                <!-- Spanish Prompt Display Box -->
+                <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-2xl p-6 text-white text-center shadow-inner relative overflow-hidden">
+                    <div class="text-xs text-indigo-300 font-bold uppercase tracking-wider mb-2">Traduce esta oración al inglés:</div>
+                    <p id="builder-spanish-prompt" class="text-xl md:text-2xl font-extrabold font-fun text-amber-300">
+                        "El supermercado está al lado del banco."
+                    </p>
+                </div>
+
+                <!-- Sentence Construction Drop Zone (Where picked words land) -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-puzzle-piece text-indigo-500"></i> Tu oración construida en inglés:
+                        </label>
+                        <button onclick="clearBuilderSentence()" class="text-xs text-rose-500 font-bold hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> Limpiar
+                        </button>
+                    </div>
+
+                    <div id="builder-dropzone" class="min-h-[80px] p-4 rounded-2xl dropzone-empty transition-all flex flex-wrap items-center gap-2">
+                        <!-- Clicked words will render here dynamically -->
+                        <span id="dropzone-placeholder" class="text-slate-400 text-sm font-medium italic">
+                            Haz clic en las palabras de abajo en el orden correcto para construir la oración...
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Word Bank (Scrambled Words) -->
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        Banco de Palabras (Haz clic para seleccionar):
+                    </label>
+                    <div id="builder-wordbank" class="flex flex-wrap items-center gap-2.5 p-4 bg-slate-50 rounded-2xl border border-slate-200/80 min-h-[70px]">
+                        <!-- Dynamic word chips generated here -->
+                    </div>
+                </div>
+
+                <!-- Action Controls & Feedback -->
+                <div id="builder-feedback" class="hidden p-4 rounded-2xl text-sm font-semibold transition-all"></div>
+
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100">
+                    <button id="btn-builder-hint" onclick="showBuilderHint()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                        <span>Pedir Pista</span>
+                    </button>
+
+                    <div class="flex items-center space-x-3">
+                        <button id="btn-builder-check" onclick="checkBuilderSentence()" class="px-6 py-3 rounded-2xl bg-indigo-600 text-white font-bold text-sm glow-button transition flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Comprobar Traducción</span>
+                        </button>
+                        <button id="btn-builder-next" onclick="nextBuilderSentence()" class="hidden px-6 py-3 rounded-2xl bg-emerald-600 text-white font-bold text-sm glow-button transition flex items-center gap-2">
+                            <span>Siguiente Oración</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentence Jump Grid -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow">
+                <h4 class="text-sm font-bold text-slate-700 mb-3 font-fun">Mapa de 15 Oraciones de Traducción (Haz clic para saltar)</h4>
+                <div class="grid grid-cols-5 sm:grid-cols-15 gap-2" id="builder-dots-grid">
+                    <!-- Dots 1 to 15 JS generated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: READING COMPREHENSION -->
+        <section id="sec-reading" class="tab-content hidden space-y-8">
+            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-3xl p-6 md:p-8 text-white shadow-xl">
+                <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Módulo 5</span>
+                <h2 class="text-2xl md:text-3xl font-fun font-bold mt-2">Lectura de Comprensión (Nivel A1)</h2>
+                <p class="text-amber-100 mt-1 max-w-2xl text-sm md:text-base">Lee la historia de Sarah mientras recorre su ciudad y responde las 10 preguntas adaptadas a tu nivel.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Text Container (7 cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 custom-shadow space-y-4 text-slate-700 leading-relaxed">
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                            <h3 class="text-xl font-bold font-fun text-slate-900">A Walk Around My Town</h3>
+                            <button onclick="readAloudReadingText()" class="px-3.5 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl font-bold text-xs flex items-center space-x-1.5 transition">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>Escuchar Lectura</span>
+                            </button>
+                        </div>
+
+                        <p class="text-sm md:text-base bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100/50">
+                            <span class="font-bold text-indigo-600 font-fun">Paragraph 1:</span> Hello! My name is Sarah, and I live in a beautiful small town. Every Saturday morning, I walk to the bakery <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">on the corner</span> of Main Street and Elm Avenue. The bakery is <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">next to</span> a nice coffee shop, so I usually buy fresh bread and drink tea there.
+                        </p>
+
+                        <p class="text-sm md:text-base bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100/50">
+                            <span class="font-bold text-emerald-600 font-fun">Paragraph 2:</span> There is a big green park <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">in front of</span> my house. Children play soccer <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">in</span> the park, and old people sit <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">under</span> the large trees. A wooden bridge goes <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">over</span> a small river inside the park. I like to walk my dog across this bridge every afternoon.
+                        </p>
+
+                        <p class="text-sm md:text-base bg-violet-50/50 p-4 rounded-2xl border border-violet-100/50">
+                            <span class="font-bold text-violet-600 font-fun">Paragraph 3:</span> My school is <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">close to</span> the central hospital. There is a busy bus stop right <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">at</span> the entrance of the school. A modern library is located <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">behind</span> the school, where students read books in silence. A <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">nearby</span> supermarket makes it easy for teachers to buy snacks after class.
+                        </p>
+
+                        <p class="text-sm md:text-base bg-rose-50/50 p-4 rounded-2xl border border-rose-100/50">
+                            <span class="font-bold text-rose-600 font-fun">Paragraph 4:</span> On Sundays, my family goes to an Italian restaurant <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">near</span> the police station. The bank is <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">on</span> the second floor of the shopping mall, and the cinema is right <span class="bg-amber-100 px-1 rounded font-semibold text-amber-900">next to</span> it. I love my town because every place is convenient and easy to find!
+                        </p>
+                    </div>
+
+                    <!-- GLOSSARY FOR READING COMPREHENSION -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-100 custom-shadow space-y-4">
+                        <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
+                            <div class="p-2.5 bg-amber-100 text-amber-700 rounded-2xl">
+                                <i class="fa-solid fa-book-bookmark text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 font-fun">Glosario de Apoyo (Useful Glossary)</h3>
+                                <p class="text-xs text-slate-500">Vocabulario clave de la lectura para facilitar la comprensión</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Bakery</span>
+                                    <span class="text-slate-600 font-medium">Panadería</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Tienda donde se hace y vende pan.</span>
+                                </div>
+                                <button onclick="speakText('Bakery')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Wooden bridge</span>
+                                    <span class="text-slate-600 font-medium">Puente de madera</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Estructura de madera sobre el río.</span>
+                                </div>
+                                <button onclick="speakText('Wooden bridge')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Across</span>
+                                    <span class="text-slate-600 font-medium">A través de / Cruzando</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Moverse de un lado al otro.</span>
+                                </div>
+                                <button onclick="speakText('Across')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Busy</span>
+                                    <span class="text-slate-600 font-medium">Concurrido / Transitado</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Con mucha actividad o gente.</span>
+                                </div>
+                                <button onclick="speakText('Busy')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Entrance</span>
+                                    <span class="text-slate-600 font-medium">Entrada</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Lugar por donde se ingresa a un lugar.</span>
+                                </div>
+                                <button onclick="speakText('Entrance')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Snacks</span>
+                                    <span class="text-slate-600 font-medium">Meriendas / Aperitivos</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Comida ligera para comer entre horas.</span>
+                                </div>
+                                <button onclick="speakText('Snacks')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Shopping mall</span>
+                                    <span class="text-slate-600 font-medium">Centro comercial</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Edificio grande con múltiples tiendas.</span>
+                                </div>
+                                <button onclick="speakText('Shopping mall')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Convenient</span>
+                                    <span class="text-slate-600 font-medium">Práctico / Cómodo</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Útil y fácil de acceder o usar.</span>
+                                </div>
+                                <button onclick="speakText('Convenient')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-amber-50/60 rounded-2xl border border-amber-100 flex items-start justify-between sm:col-span-2">
+                                <div>
+                                    <span class="font-bold text-amber-900 text-sm block">Usually</span>
+                                    <span class="text-slate-600 font-medium">Usualmente / Por lo general</span>
+                                    <span class="text-[11px] text-amber-700 block italic mt-0.5">Indica lo que ocurre habitualmente o la mayoría de las veces.</span>
+                                </div>
+                                <button onclick="speakText('Usually')" class="text-amber-700 hover:text-amber-900 p-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10 Comprehension Questions (5 cols) -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 md:p-8 border border-slate-100 custom-shadow space-y-6">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                        <h3 class="text-lg font-bold font-fun text-slate-900">10 Preguntas de Comprensión</h3>
+                        <span id="reading-score" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">0/10 Resueltas</span>
+                    </div>
+
+                    <div id="reading-questions-container" class="space-y-6 max-h-[600px] overflow-y-auto pr-2">
+                        <!-- Dynamic generated reading questions -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // APP STATE
+        let userXP = 0;
+        let completedQuestions = new Set();
+        let completedBuilderSentences = new Set();
+        let currentQuestionIdx = 0;
+        let currentBuilderIdx = 0;
+
+        // Current sentence construction state
+        let currentSelectedWords = [];
+
+        // Fisher-Yates algorithm for shuffling array elements randomly
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // PREPOSITIONS DATA (11 ITEMS)
+        const PREPOSITIONS = [
+            { word: "in", trans: "en / dentro de", ex: "The apples are in the basket.", icon: "fa-solid fa-box-open" },
+            { word: "on", trans: "en / sobre (superficie)", ex: "The book is on the table.", icon: "fa-solid fa-table" },
+            { word: "at", trans: "en (punto específico)", ex: "Meet me at the bus stop.", icon: "fa-solid fa-map-pin" },
+            { word: "near", trans: "cerca de", ex: "The park is near my house.", icon: "fa-solid fa-arrows-to-dot" },
+            { word: "in front of", trans: "enfrente / delante de", ex: "The car is in front of the house.", icon: "fa-solid fa-person-walking-arrow-right" },
+            { word: "behind", trans: "detrás de", ex: "The garden is behind the school.", icon: "fa-solid fa-shield-halved" },
+            { word: "close to", trans: "cerca de (con 'to')", ex: "My apartment is close to the bank.", icon: "fa-solid fa-link" },
+            { word: "nearby", trans: "cercano / cerca", ex: "We ate at a nearby restaurant.", icon: "fa-solid fa-compass" },
+            { word: "over", trans: "sobre / por encima de", ex: "The plane flies over the city.", icon: "fa-solid fa-plane-up" },
+            { word: "on the corner", trans: "en la esquina", ex: "The bakery is on the corner.", icon: "fa-solid fa-draw-polygon" },
+            { word: "under", trans: "debajo de", ex: "The cat is under the chair.", icon: "fa-solid fa-arrow-down" }
+        ];
+
+        // CITY PLACES VOCABULARY (12 ITEMS)
+        const CITY_PLACES = [
+            { word: "Supermarket", trans: "Supermercado", icon: "fa-solid fa-cart-shopping", ex: "I buy food at the supermarket." },
+            { word: "Pharmacy", trans: "Farmacia", icon: "fa-solid fa-pills", ex: "The pharmacy is open now." },
+            { word: "Hospital", trans: "Hospital", icon: "fa-solid fa-hospital", ex: "The doctors work at the hospital." },
+            { word: "Bank", trans: "Banco", icon: "fa-solid fa-building-columns", ex: "The bank is on Main Street." },
+            { word: "Police station", trans: "Comisaría", icon: "fa-solid fa-shield-cat", ex: "The police station is nearby." },
+            { word: "Bus stop", trans: "Parada de autobús", icon: "fa-solid fa-bus", ex: "Wait for the bus at the bus stop." },
+            { word: "Train station", trans: "Estación de tren", icon: "fa-solid fa-train", ex: "The train station is very big." },
+            { word: "Park", trans: "Parque", icon: "fa-solid fa-tree", ex: "We walk in the park." },
+            { word: "Library", trans: "Biblioteca", icon: "fa-solid fa-book", ex: "The library is behind the school." },
+            { word: "Bakery", trans: "Panadería", icon: "fa-solid fa-bread-slice", ex: "The bakery sells good bread." },
+            { word: "Cinema", trans: "Cine", icon: "fa-solid fa-film", ex: "We watch movies at the cinema." },
+            { word: "Restaurant", trans: "Restaurante", icon: "fa-solid fa-utensils", ex: "We eat dinner at a restaurant." }
+        ];
+
+        // 50 PRACTICE EXERCISES FOR A1 STUDENTS
+        // ans index is randomized across 0, 1, and 2, with explicit translations & hints
+        const ORIGINAL_EXERCISES = [
+            // IN
+            { text: "The students are sitting _____ the classroom.", trans: "Traducción: Los estudiantes están sentados en el aula.", options: ["on", "in", "at"], ans: 1, explain: "Usamos 'in' para espacios cerrados como habitaciones o aulas." },
+            { text: "My parents live _____ Madrid.", trans: "Traducción: Mis padres viven en Madrid.", options: ["at", "on", "in"], ans: 2, explain: "Usamos 'in' con ciudades y países." },
+            { text: "There is fresh milk _____ the refrigerator.", trans: "Traducción: Hay leche fresca en la nevera.", options: ["in", "under", "on"], ans: 0, explain: "'In' se usa para el interior de un contenedor o electrodoméstico." },
+            { text: "She keeps her keys _____ her bag.", trans: "Traducción: Ella guarda sus llaves en su bolso.", options: ["over", "in", "on"], ans: 1, explain: "Las llaves están dentro ('in') del bolso." },
+            { text: "Children like to play _____ the park.", trans: "Traducción: A los niños les gusta jugar en el parque.", options: ["at", "on", "in"], ans: 2, explain: "Se usa 'in the park' para indicar dentro de las instalaciones del parque." },
+
+            // ON
+            { text: "The coffee cup is _____ the table.", trans: "Traducción: La taza de café está sobre la mesa.", options: ["in", "on", "under"], ans: 1, explain: "Usamos 'on' cuando algo está en contacto sobre una superficie." },
+            { text: "My house is _____ Main Street.", trans: "Traducción: Mi casa está en la calle Principal.", options: ["on", "in", "at"], ans: 0, explain: "Usamos 'on' para nombres de calles y avenidas." },
+            { text: "There is a beautiful painting _____ the wall.", trans: "Traducción: Hay un cuadro hermoso en la pared.", options: ["at", "on", "in"], ans: 1, explain: "Las imágenes colgadas en paredes usan la preposición 'on'." },
+            { text: "Our classroom is _____ the second floor.", trans: "Traducción: Nuestra aula está en el segundo piso.", options: ["at", "in", "on"], ans: 2, explain: "Para pisos de edificios se utiliza 'on' (on the second floor)." },
+            { text: "Put your books _____ the desk, please.", trans: "Traducción: Pon tus libros sobre el escritorio, por favor.", options: ["on", "under", "in"], ans: 0, explain: "'On the desk' = Sobre el escritorio." },
+
+            // AT
+            { text: "I am waiting for you _____ the bus stop.", trans: "Traducción: Te estoy esperando en la parada de autobús.", options: ["on", "at", "in"], ans: 1, explain: "Usamos 'at' para puntos específicos como paradas de autobús." },
+            { text: "She works _____ 104 Oxford Street.", trans: "Traducción: Ella trabaja en el 104 de la calle Oxford.", options: ["on", "in", "at"], ans: 2, explain: "Usamos 'at' cuando se menciona un número exacto de dirección." },
+            { text: "We always meet _____ the entrance of the cinema.", trans: "Traducción: Siempre nos encontramos en la entrada del cine.", options: ["at", "in", "on"], ans: 0, explain: "'At the entrance' se refiere a un punto de encuentro preciso." },
+            { text: "My brother is currently _____ school.", trans: "Traducción: Mi hermano está actualmente en la escuela.", options: ["on", "at", "over"], ans: 1, explain: "Expresiones fijas de ubicación: at school, at work, at home." },
+            { text: "The train arrives _____ the station at 9:00 AM.", trans: "Traducción: El tren llega a la estación a las 9:00 AM.", options: ["in", "on", "at"], ans: 2, explain: "Usamos 'at the station' para indicar la ubicación del punto." },
+
+            // NEAR / CLOSE TO / NEARBY
+            { text: "The hospital is _____ the park.", trans: "Traducción: El hospital está cerca del parque.", options: ["near", "near to", "close"], ans: 0, explain: "'Near' NO requiere la palabra 'to' después (near the park)." },
+            { text: "My house is very close _____ the library.", trans: "Traducción: Mi casa está muy cerca de la biblioteca.", options: ["at", "to", "of"], ans: 1, explain: "La expresión correcta es 'close to'." },
+            { text: "Is there a _____ supermarket near here?", trans: "Traducción: ¿Hay un supermercado cercano por aquí?", options: ["near to", "close", "nearby"], ans: 2, explain: "'Nearby' funciona como adjetivo antes de un sustantivo (a nearby supermarket)." },
+            { text: "They live _____ the sea.", trans: "Traducción: Ellos viven cerca del mar.", options: ["near", "close", "nearby to"], ans: 0, explain: "Sujeto + live + near + the sea." },
+            { text: "The school is close _____ the police station.", trans: "Traducción: La escuela está cerca de la comisaría.", options: ["at", "to", "on"], ans: 1, explain: "'Close to' significa cerca de." },
+            { text: "We found a lovely cafe _____.", trans: "Traducción: Encontramos un café encantador cerca.", options: ["near to", "close", "nearby"], ans: 2, explain: "'Nearby' se puede colocar al final como adverbio de lugar." },
+            { text: "Don't stand so _____ the road!", trans: "Traducción: ¡No te pares tan cerca de la carretera!", options: ["near", "close", "nearby"], ans: 0, explain: "'Near the road' = Cerca de la calle." },
+
+            // IN FRONT OF / BEHIND
+            { text: "The teacher stands _____ the students.", trans: "Traducción: El profesor se para enfrente de los estudiantes.", options: ["behind of", "in front of", "front to"], ans: 1, explain: "'In front of' significa delante / enfrente de." },
+            { text: "The garden is _____ the house.", trans: "Traducción: El jardín está detrás de la casa.", options: ["behind of", "in back", "behind"], ans: 2, explain: "'Behind' significa detrás de y no lleva 'of'." },
+            { text: "There is a big tree _____ my window.", trans: "Traducción: Hay un gran árbol delante de mi ventana.", options: ["in front of", "front of", "in front"], ans: 0, explain: "La estructura completa es 'in front of'." },
+            { text: "Who is standing _____ you in the line?", trans: "Traducción: ¿Quién está de pie detrás de ti en la fila?", options: ["behind to", "behind", "under"], ans: 1, explain: "'Behind you' = Detrás de ti." },
+            { text: "The bus is parked right _____ the station.", trans: "Traducción: El autobús está estacionado justo enfrente de la estación.", options: ["front to", "close of", "in front of"], ans: 2, explain: "'In front of' es la forma correcta." },
+            { text: "The sun disappeared _____ the clouds.", trans: "Traducción: El sol desapareció detrás de las nubes.", options: ["behind", "in front of", "under of"], ans: 0, explain: "'Behind the clouds' = Detrás de las nubes." },
+            { text: "I am waiting _____ the pharmacy.", trans: "Traducción: Estoy esperando enfrente de la farmacia.", options: ["behind of", "in front of", "on front"], ans: 1, explain: "In front of the pharmacy = Enfrente de la farmacia." },
+
+            // OVER / UNDER
+            { text: "The bridge goes _____ the river.", trans: "Traducción: El puente pasa sobre el río.", options: ["under", "in", "over"], ans: 2, explain: "'Over' indica pasar por encima de algo de un lado a otro." },
+            { text: "The cat is sleeping _____ the chair.", trans: "Traducción: El gato está durmiendo debajo de la silla.", options: ["under", "over", "on"], ans: 0, explain: "'Under' significa debajo de." },
+            { text: "A plane is flying _____ the city.", trans: "Traducción: Un avión está volando sobre la ciudad.", options: ["under", "over", "in front of"], ans: 1, explain: "'Over the city' = Sobrevolando la ciudad." },
+            { text: "Put your shoes _____ the bed.", trans: "Traducción: Pon tus zapatos debajo de la cama.", options: ["over", "at", "under"], ans: 2, explain: "'Under the bed' = Debajo de la cama." },
+            { text: "Hold the umbrella _____ your head.", trans: "Traducción: Sostén el paraguas sobre tu cabeza.", options: ["over", "under", "behind"], ans: 0, explain: "'Over your head' = Por encima de tu cabeza." },
+            { text: "The boat sailed _____ the old bridge.", trans: "Traducción: El barco navegó por debajo del viejo puente.", options: ["over", "under", "on"], ans: 1, explain: "'Under the bridge' = Por debajo del puente." },
+
+            // ON THE CORNER
+            { text: "The bakery is _____ of First Street and Park Avenue.", trans: "Traducción: La panadería está en la esquina de la Calle Primera y la Avenida Park.", options: ["in corner", "at corner", "on the corner"], ans: 2, explain: "La frase correcta es 'on the corner of...'." },
+            { text: "There is a police officer standing _____.", trans: "Traducción: Hay un oficial de policía parado en la esquina.", options: ["on the corner", "in the corner of", "at corner"], ans: 0, explain: "'On the corner' indica en la esquina." },
+            { text: "Meet me at the newspaper stand _____.", trans: "Traducción: Encuéntrame en el puesto de periódicos en la esquina.", options: ["under corner", "on the corner", "over corner"], ans: 1, explain: "'On the corner' para hablar de la esquina." },
+            { text: "The gas station is _____ of the main road.", trans: "Traducción: La gasolinería está en la esquina de la carretera principal.", options: ["at the corner to", "in corner", "on the corner"], ans: 2, explain: "Usamos 'on the corner'." },
+            { text: "Is the bank _____ of Second Street?", trans: "Traducción: ¿Está el banco en la esquina de la Calle Segunda?", options: ["on the corner", "under corner", "behind corner"], ans: 0, explain: "'On the corner' = En la esquina." },
+
+            // MIXED CONTEXTS & SPECIFIC COMPARISONS
+            { text: "The museum is _____ the bank.", trans: "Traducción: El museo está cerca del banco.", options: ["in front", "near", "under"], ans: 1, explain: "Near indica cercanía general." },
+            { text: "Where is the cat? It is _____ the table.", trans: "Traducción: ¿Dónde está el gato? Está debajo de la mesa.", options: ["over to", "nearby of", "under"], ans: 2, explain: "Debajo de la mesa = under the table." },
+            { text: "¿Cuál es la frase correcta para decir: 'El parque está cerca de la escuela'?", trans: "Traducción: Selecciona la oración en inglés gramaticalmente correcta.", options: ["The park is near the school.", "The park is near to the school.", "The park is nearby the school."], ans: 0, explain: "'Near' no utiliza la preposición 'to'." },
+            { text: "¿Cuál es la frase correcta para decir: 'Mi casa está cerca del hospital'?", trans: "Traducción: Selecciona la oración en inglés gramaticalmente correcta.", options: ["My house is close the hospital.", "My house is close to the hospital.", "My house is close at hospital."], ans: 1, explain: "'Close' requiere 'to' (close to the hospital)." },
+            { text: "Is there a pharmacy _____?", trans: "Traducción: ¿Hay una farmacia cercana por aquí?", options: ["near to", "close of", "nearby"], ans: 2, explain: "'Nearby' se utiliza solo al final de la oración para indicar 'cerca'." },
+            { text: "We stayed _____ a hotel in London.", trans: "Traducción: Nos hospedamos en un hotel en Londres.", options: ["at", "on", "over"], ans: 0, explain: "Usamos 'at a hotel' para señalar la ubicación del alojamiento." },
+            { text: "The dog is sleeping _____ the rug in the living room.", trans: "Traducción: El perro está durmiendo sobre la alfombra en la sala.", options: ["in", "on", "at"], ans: 1, explain: "Sobre la alfombra = on the rug." },
+            { text: "The kids hid _____ the sofa during the game.", trans: "Traducción: Los niños se escondieron detrás del sofá durante el juego.", options: ["in front", "on top", "behind"], ans: 2, explain: "Detrás del sofá = behind the sofa." },
+            { text: "There is a rainbow _____ the mountains.", trans: "Traducción: Hay un arcoíris sobre las montañas.", options: ["over", "under", "at"], ans: 0, explain: "Por encima de las montañas = over the mountains." },
+            { text: "The town library is located _____ Fifth Avenue.", trans: "Traducción: La biblioteca del pueblo está ubicada en la Avenida Quinta.", options: ["in", "on", "at"], ans: 1, explain: "Las avenidas y calles usan 'on'." }
+        ];
+
+        // SHUFFLED EXERCISES ARRAY AT STARTUP
+        let EXERCISES = shuffleArray(ORIGINAL_EXERCISES);
+
+        // 15 SENTENCE BUILDER EXERCISES (Translation from Spanish to English)
+        const BUILDER_SENTENCES = [
+            {
+                spanish: "El supermercado está al lado del banco.",
+                words: ["The", "supermarket", "is", "next to", "the", "bank."],
+                distractors: ["under", "in", "on"],
+                prep: "next to",
+                hint: "Recuerda: 'al lado de' se traduce como 'next to'."
+            },
+            {
+                spanish: "La farmacia está en la esquina de la calle Main.",
+                words: ["The", "pharmacy", "is", "on the corner of", "Main Street."],
+                distractors: ["at", "in", "behind"],
+                prep: "on the corner of",
+                hint: "Usamos 'on the corner of' para esquinas de calles."
+            },
+            {
+                spanish: "Hay un gran parque enfrente de la escuela.",
+                words: ["There is", "a big park", "in front of", "the school."],
+                distractors: ["under", "close", "over"],
+                prep: "in front of",
+                hint: "'Enfrente de' se dice 'in front of'."
+            },
+            {
+                spanish: "La biblioteca está detrás del hospital.",
+                words: ["The", "library", "is", "behind", "the hospital."],
+                distractors: ["in front of", "on", "at"],
+                prep: "behind",
+                hint: "'Detrás de' se dice 'behind'."
+            },
+            {
+                spanish: "El gato está durmiendo debajo de la mesa.",
+                words: ["The cat", "is sleeping", "under", "the table."],
+                distractors: ["over", "on top", "in"],
+                prep: "under",
+                hint: "'Debajo de' se traduce como 'under'."
+            },
+            {
+                spanish: "Un puente de madera pasa sobre el río.",
+                words: ["A wooden bridge", "goes", "over", "the river."],
+                distractors: ["under", "in", "at"],
+                prep: "over",
+                hint: "'Por encima / sobre' cuando cruza de un lado a otro es 'over'."
+            },
+            {
+                spanish: "Nos encontramos en la parada de autobús.",
+                words: ["We meet", "at", "the bus stop."],
+                distractors: ["in", "on", "over"],
+                prep: "at",
+                hint: "Para paradas o puntos específicos usamos 'at'."
+            },
+            {
+                spanish: "Los niños juegan en el parque.",
+                words: ["The children", "play", "in", "the park."],
+                distractors: ["on", "at", "under"],
+                prep: "in",
+                hint: "Para estar dentro de las instalaciones del parque usamos 'in'."
+            },
+            {
+                spanish: "Mi apartamento está cerca de la estación de tren.",
+                words: ["My apartment", "is", "close to", "the train station."],
+                distractors: ["near to", "behind of", "at"],
+                prep: "close to",
+                hint: "'Close' siempre debe ir acompañado de 'to'."
+            },
+            {
+                spanish: "Hay un restaurante encantador cerca.",
+                words: ["There is", "a lovely restaurant", "nearby."],
+                distractors: ["near to", "close of", "in front"],
+                prep: "nearby",
+                hint: "Cuando 'cercano/cerca' va solo al final, usamos 'nearby'."
+            },
+            {
+                spanish: "La cafetería está en el segundo piso.",
+                words: ["The coffee shop", "is", "on", "the second floor."],
+                distractors: ["in", "at", "under"],
+                prep: "on",
+                hint: "Para pisos o plantas de un edificio se utiliza 'on'."
+            },
+            {
+                spanish: "El cine está al lado de la panadería.",
+                words: ["The cinema", "is", "next to", "the bakery."],
+                distractors: ["under", "over", "in"],
+                prep: "next to",
+                hint: "'Next to' indica al lado de."
+            },
+            {
+                spanish: "La comisaría está cerca del banco.",
+                words: ["The police station", "is", "near", "the bank."],
+                distractors: ["near to", "close", "nearby to"],
+                prep: "near",
+                hint: "'Near' NO debe llevar 'to' después."
+            },
+            {
+                spanish: "Hay un cuadro hermoso en la pared.",
+                words: ["There is", "a beautiful painting", "on", "the wall."],
+                distractors: ["in", "at", "under"],
+                prep: "on",
+                hint: "Para cosas en una superficie vertical (pared) usamos 'on'."
+            },
+            {
+                spanish: "El autobús está estacionado justo enfrente de la entrada.",
+                words: ["The bus", "is parked", "right in front of", "the entrance."],
+                distractors: ["behind of", "over", "at"],
+                prep: "in front of",
+                hint: "'Justo enfrente de' = 'right in front of'."
+            }
+        ];
+
+        // 10 READING COMPREHENSION QUESTIONS (A1)
+        const READING_QUESTIONS = [
+            { q: "1. Where is the bakery located?", opts: ["In front of the hospital", "On the corner of Main Street and Elm Avenue", "Under the bridge"], ans: 1, exp: "Paragraph 1 states: 'at the bakery on the corner of Main Street and Elm Avenue'." },
+            { q: "2. What is next to the bakery?", opts: ["A coffee shop", "A police station", "A library"], ans: 0, exp: "Paragraph 1 states: 'The bakery is next to a nice coffee shop'." },
+            { q: "3. Where is the big green park?", opts: ["Behind the school", "In front of Sarah's house", "On the second floor"], ans: 1, exp: "Paragraph 2 states: 'There is a big green park in front of my house'." },
+            { q: "4. Where do old people sit in the park?", opts: ["In the river", "Under the large trees", "On the roof"], ans: 1, exp: "Paragraph 2 states: 'old people sit under the large trees'." },
+            { q: "5. What goes over the small river?", opts: ["A bus stop", "A wooden bridge", "A supermarket"], ans: 1, exp: "Paragraph 2 states: 'A wooden bridge goes over a small river'." },
+            { q: "6. Where is the bus stop located?", opts: ["Right at the entrance of the school", "Behind the bank", "On the bridge"], ans: 0, exp: "Paragraph 3 states: 'a busy bus stop right at the entrance of the school'." },
+            { q: "7. Where is the modern library?", opts: ["Behind the school", "Under the bridge", "In front of the bakery"], ans: 0, exp: "Paragraph 3 states: 'A modern library is located behind the school'." },
+            { q: "8. When does Sarah's family go to the Italian restaurant?", opts: ["On Saturdays", "On Sundays", "Every morning"], ans: 1, exp: "Paragraph 4 states: 'On Sundays, my family goes to an Italian restaurant'." },
+            { q: "9. Where is the bank?", opts: ["Under the bridge", "On the second floor of the shopping mall", "In front of the park"], ans: 1, exp: "Paragraph 4 states: 'The bank is on the second floor of the shopping mall'." },
+            { q: "10. Why does Sarah love her town?", opts: ["Because it is very dark", "Because every place is convenient and easy to find", "Because there are no shops"], ans: 1, exp: "Paragraph 4 states: 'because every place is convenient and easy to find'." }
+        ];
+
+        // AUDIO SPEECH SYNTHESIS
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function readAloudReadingText() {
+            const text = "Hello! My name is Sarah, and I live in a beautiful small town. Every Saturday morning, I walk to the bakery on the corner of Main Street and Elm Avenue. The bakery is next to a nice coffee shop, so I usually buy fresh bread and drink tea there. There is a big green park in front of my house. Children play soccer in the park, and old people sit under the large trees. A wooden bridge goes over a small river inside the park. I like to walk my dog across this bridge every afternoon. My school is close to the central hospital. There is a busy bus stop right at the entrance of the school. A modern library is located behind the school, where students read books in silence. A nearby supermarket makes it easy for teachers to buy snacks after class. On Sundays, my family goes to an Italian restaurant near the police station. The bank is on the second floor of the shopping mall, and the cinema is right next to it. I love my town because every place is convenient and easy to find!";
+            speakText(text);
+        }
+
+        // PLAY SOUND EFFECT USING WEB AUDIO API
+        function playSoundEffect(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(130, ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch(e) {
+                console.log("Audio not supported or blocked");
+            }
+        }
+
+        function updateTotalCompletedCounter() {
+            const totalDone = completedQuestions.size + completedBuilderSentences.size;
+            document.getElementById('user-completed').innerText = `${totalDone}/65`;
+        }
+
+        // TAB NAVIGATION LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+
+            const targetSec = document.getElementById(`sec-${tabId}`);
+            if (targetSec) {
+                targetSec.classList.remove('hidden');
+                targetSec.classList.add('block');
+            }
+
+            const targetBtn = document.getElementById(`tab-${tabId}`);
+            if (targetBtn) {
+                targetBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                targetBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+            }
+        }
+
+        // RENDER VOCABULARY MODULES
+        function renderVocabulary() {
+            const prepGrid = document.getElementById('prepositions-grid');
+            prepGrid.innerHTML = PREPOSITIONS.map(p => `
+                <div class="bg-indigo-50/50 hover:bg-indigo-50 border border-indigo-100/80 rounded-2xl p-4 card-bounce flex items-start justify-between space-x-3 transition">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-base font-extrabold text-indigo-900 font-fun">${p.word}</span>
+                            <span class="text-xs text-indigo-600 font-medium">(${p.trans})</span>
+                        </div>
+                        <p class="text-xs text-slate-600 italic">"${p.ex}"</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="speakText('${p.word}. ${p.ex}')" class="p-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl transition text-xs shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            const cityGrid = document.getElementById('city-places-grid');
+            cityGrid.innerHTML = CITY_PLACES.map(c => `
+                <div class="bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-100/80 rounded-2xl p-4 card-bounce flex flex-col justify-between space-y-3 transition">
+                    <div class="flex items-center justify-between">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg">
+                            <i class="${c.icon}"></i>
+                        </div>
+                        <button onclick="speakText('${c.word}')" class="p-2 bg-emerald-600 text-white hover:bg-emerald-700 rounded-xl transition text-xs shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-sm font-fun">${c.word}</h4>
+                        <p class="text-xs text-emerald-700 font-semibold mb-1">${c.trans}</p>
+                        <p class="text-[11px] text-slate-500 italic">"${c.ex}"</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // QUIZ LOGIC (50 QUESTIONS)
+        function shuffleAndResetQuiz() {
+            EXERCISES = shuffleArray(ORIGINAL_EXERCISES);
+            completedQuestions.clear();
+            updateTotalCompletedCounter();
+            loadQuestion(0);
+        }
+
+        function loadQuestion(idx) {
+            currentQuestionIdx = idx;
+            const q = EXERCISES[idx];
+            
+            document.getElementById('quiz-progress-text').innerText = `${idx + 1} / 50`;
+            document.getElementById('q-counter-bottom').innerText = `Pregunta ${idx + 1} de 50`;
+            document.getElementById('q-text').innerText = q.text;
+            document.getElementById('q-trans').innerText = q.trans;
+
+            const container = document.getElementById('q-answers-container');
+            container.innerHTML = '';
+
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.add('hidden');
+
+            const isDone = completedQuestions.has(idx);
+
+            q.options.forEach((opt, oIdx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-2xl border font-semibold text-sm transition flex items-center justify-between ${
+                    isDone 
+                    ? (oIdx === q.ans ? 'bg-emerald-50 border-emerald-300 text-emerald-900 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400')
+                    : 'bg-slate-50 border-slate-200/90 hover:bg-indigo-50/70 hover:border-indigo-200 text-slate-700'
+                }`;
+                btn.onclick = () => handleAnswerSelect(oIdx);
+                if(isDone) btn.disabled = true;
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-500 flex items-center justify-center">${String.fromCharCode(65 + oIdx)}</span>
+                        <span>${opt}</span>
+                    </div>
+                    ${isDone && oIdx === q.ans ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>' : ''}
+                `;
+                container.appendChild(btn);
+            });
+
+            document.getElementById('btn-prev-q').disabled = (idx === 0);
+            document.getElementById('btn-next-q').disabled = (idx === EXERCISES.length - 1);
+
+            renderDotsGrid();
+        }
+
+        function handleAnswerSelect(chosenIdx) {
+            const q = EXERCISES[currentQuestionIdx];
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-200', 'bg-rose-50', 'text-rose-900', 'border-rose-200');
+
+            if (chosenIdx === q.ans) {
+                playSoundEffect('correct');
+                feedbackBox.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                feedbackBox.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-lg mt-0.5"></i>
+                        <div>
+                            <p class="font-bold">¡Excelente! Respuesta correcta (+10 XP)</p>
+                            <p class="text-xs text-emerald-700 font-normal mt-0.5">${q.explain}</p>
+                        </div>
+                    </div>
+                `;
+
+                if (!completedQuestions.has(currentQuestionIdx)) {
+                    completedQuestions.add(currentQuestionIdx);
+                    userXP += 10;
+                    document.getElementById('user-xp').innerText = userXP;
+                    updateTotalCompletedCounter();
+
+                    if (completedQuestions.size % 10 === 0 && typeof confetti === 'function') {
+                        confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+                    }
+                }
+            } else {
+                playSoundEffect('wrong');
+                feedbackBox.classList.add('bg-rose-50', 'text-rose-900', 'border', 'border-rose-200');
+                feedbackBox.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-circle-xmark text-rose-600 text-lg mt-0.5"></i>
+                        <div>
+                            <p class="font-bold">Inténtalo de nuevo</p>
+                            <p class="text-xs text-rose-700 font-normal mt-0.5">${q.explain}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            loadQuestion(currentQuestionIdx);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIdx < EXERCISES.length - 1) {
+                loadQuestion(currentQuestionIdx + 1);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                loadQuestion(currentQuestionIdx - 1);
+            }
+        }
+
+        function renderDotsGrid() {
+            const grid = document.getElementById('question-dots-grid');
+            grid.innerHTML = EXERCISES.map((_, i) => {
+                const isCurrent = i === currentQuestionIdx;
+                const isDone = completedQuestions.has(i);
+                return `
+                    <button onclick="loadQuestion(${i})" class="h-8 rounded-lg text-xs font-bold transition flex items-center justify-center ${
+                        isCurrent 
+                        ? 'ring-2 ring-indigo-600 bg-indigo-600 text-white' 
+                        : isDone 
+                        ? 'bg-emerald-500 text-white' 
+                        : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                    }">
+                        ${i + 1}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // SENTENCE BUILDER LOGIC (TRADUCCIÓN DE ORACIONES)
+        function loadBuilderSentence(idx) {
+            currentBuilderIdx = idx;
+            currentSelectedWords = [];
+
+            const b = BUILDER_SENTENCES[idx];
+            document.getElementById('builder-progress-text').innerText = `${idx + 1} / ${BUILDER_SENTENCES.length}`;
+            document.getElementById('builder-prep-tag').innerText = `Preposición: ${b.prep}`;
+            document.getElementById('builder-spanish-prompt').innerText = `"${b.spanish}"`;
+
+            // Reset action buttons and feedback
+            document.getElementById('builder-feedback').classList.add('hidden');
+            document.getElementById('btn-builder-check').classList.remove('hidden');
+            document.getElementById('btn-builder-next').classList.add('hidden');
+
+            // Render current dropzone and wordbank
+            renderBuilderDropzone();
+            
+            // Combine correct words and distractors then shuffle
+            const allWords = shuffleArray([...b.words, ...b.distractors]);
+            renderBuilderWordbank(allWords);
+            renderBuilderDotsGrid();
+        }
+
+        function renderBuilderDropzone() {
+            const dropzone = document.getElementById('builder-dropzone');
+            
+            if (currentSelectedWords.length === 0) {
+                dropzone.className = "min-h-[80px] p-4 rounded-2xl dropzone-empty transition-all flex flex-wrap items-center gap-2";
+                dropzone.innerHTML = `<span id="dropzone-placeholder" class="text-slate-400 text-sm font-medium italic">Haz clic en las palabras de abajo en el orden correcto para construir la oración...</span>`;
+                return;
+            }
+
+            dropzone.className = "min-h-[80px] p-4 rounded-2xl dropzone-active transition-all flex flex-wrap items-center gap-2";
+            dropzone.innerHTML = currentSelectedWords.map((word, wIdx) => `
+                <button onclick="removeWordFromBuilder(${wIdx})" class="word-chip px-3.5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-md hover:bg-indigo-700 flex items-center space-x-1.5">
+                    <span>${word}</span>
+                    <i class="fa-solid fa-xmark text-xs opacity-70"></i>
+                </button>
+            `).join('');
+        }
+
+        function renderBuilderWordbank(wordsList) {
+            const bank = document.getElementById('builder-wordbank');
+            bank.innerHTML = wordsList.map((word) => `
+                <button onclick="addWordToBuilder('${word.replace(/'/g, "\\'")}', this)" class="word-chip px-3.5 py-2 bg-white border border-slate-200 text-slate-800 rounded-xl text-sm font-bold shadow-sm hover:border-indigo-400 hover:text-indigo-600 transition">
+                    ${word}
+                </button>
+            `).join('');
+        }
+
+        function addWordToBuilder(word, btnElement) {
+            currentSelectedWords.push(word);
+            btnElement.style.visibility = "hidden";
+            renderBuilderDropzone();
+        }
+
+        function removeWordFromBuilder(wIdx) {
+            const removedWord = currentSelectedWords[wIdx];
+            currentSelectedWords.splice(wIdx, 1);
+
+            // Make the chip visible again in wordbank
+            const bankButtons = document.querySelectorAll('#builder-wordbank button');
+            for (let btn of bankButtons) {
+                if (btn.innerText.trim() === removedWord && btn.style.visibility === "hidden") {
+                    btn.style.visibility = "visible";
+                    break;
+                }
+            }
+
+            renderBuilderDropzone();
+        }
+
+        function clearBuilderSentence() {
+            currentSelectedWords = [];
+            const bankButtons = document.querySelectorAll('#builder-wordbank button');
+            bankButtons.forEach(btn => btn.style.visibility = "visible");
+            renderBuilderDropzone();
+            document.getElementById('builder-feedback').classList.add('hidden');
+        }
+
+        function showBuilderHint() {
+            const b = BUILDER_SENTENCES[currentBuilderIdx];
+            const feedback = document.getElementById('builder-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'bg-rose-50', 'border-rose-200');
+            feedback.classList.add('bg-amber-50', 'text-amber-900', 'border', 'border-amber-200');
+            feedback.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-lightbulb text-amber-500 text-lg"></i>
+                    <div>
+                        <p class="font-bold text-xs uppercase tracking-wider">Pista Gramatical:</p>
+                        <p class="text-sm font-normal">${b.hint}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkBuilderSentence() {
+            const b = BUILDER_SENTENCES[currentBuilderIdx];
+            const targetSentence = b.words.join(' ');
+            const userSentence = currentSelectedWords.join(' ');
+
+            const feedback = document.getElementById('builder-feedback');
+            feedback.classList.remove('hidden', 'bg-amber-50', 'border-amber-200', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-200', 'bg-rose-50', 'text-rose-900', 'border-rose-200');
+
+            if (userSentence.trim().toLowerCase() === targetSentence.trim().toLowerCase()) {
+                playSoundEffect('correct');
+                feedback.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+                feedback.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-xl mt-0.5"></i>
+                            <div>
+                                <p class="font-bold text-base">¡Traducción Perfecta! (+15 XP)</p>
+                                <p class="text-sm text-emerald-800 font-semibold mt-0.5">"${targetSentence}"</p>
+                            </div>
+                        </div>
+                        <button onclick="speakText('${targetSentence.replace(/'/g, "\\'")}')" class="p-2 bg-emerald-600 text-white rounded-xl text-xs hover:bg-emerald-700 transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                `;
+
+                // Automatically speak pronunciation
+                speakText(targetSentence);
+
+                if (!completedBuilderSentences.has(currentBuilderIdx)) {
+                    completedBuilderSentences.add(currentBuilderIdx);
+                    userXP += 15;
+                    document.getElementById('user-xp').innerText = userXP;
+                    updateTotalCompletedCounter();
+
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
+                    }
+                }
+
+                document.getElementById('btn-builder-check').classList.add('hidden');
+                document.getElementById('btn-builder-next').classList.remove('hidden');
+
+            } else {
+                playSoundEffect('wrong');
+                feedback.classList.add('bg-rose-50', 'text-rose-900', 'border', 'border-rose-200');
+                feedback.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-circle-xmark text-rose-600 text-xl mt-0.5"></i>
+                        <div>
+                            <p class="font-bold">Aún no es del todo correcto</p>
+                            <p class="text-xs text-rose-700 font-normal mt-0.5">Revisa el orden de las palabras y la preposición. ¡Usa el botón de pista si necesitas ayuda!</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderBuilderDotsGrid();
+        }
+
+        function nextBuilderSentence() {
+            if (currentBuilderIdx < BUILDER_SENTENCES.length - 1) {
+                loadBuilderSentence(currentBuilderIdx + 1);
+            } else {
+                loadBuilderSentence(0);
+            }
+        }
+
+        function speakBuilderPrompt() {
+            const b = BUILDER_SENTENCES[currentBuilderIdx];
+            speakText(b.words.join(' '));
+        }
+
+        function renderBuilderDotsGrid() {
+            const grid = document.getElementById('builder-dots-grid');
+            grid.innerHTML = BUILDER_SENTENCES.map((_, i) => {
+                const isCurrent = i === currentBuilderIdx;
+                const isDone = completedBuilderSentences.has(i);
+                return `
+                    <button onclick="loadBuilderSentence(${i})" class="h-8 rounded-lg text-xs font-bold transition flex items-center justify-center ${
+                        isCurrent 
+                        ? 'ring-2 ring-indigo-600 bg-indigo-600 text-white' 
+                        : isDone 
+                        ? 'bg-purple-600 text-white' 
+                        : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                    }">
+                        ${i + 1}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // READING COMPREHENSION QUESTIONS RENDER
+        const readingUserAnswers = new Map();
+
+        function renderReadingQuestions() {
+            const container = document.getElementById('reading-questions-container');
+            container.innerHTML = READING_QUESTIONS.map((item, qIdx) => {
+                const userAns = readingUserAnswers.get(qIdx);
+                return `
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
+                        <p class="font-bold text-slate-800 text-xs md:text-sm">${item.q}</p>
+                        <div class="space-y-1.5">
+                            ${item.opts.map((opt, oIdx) => {
+                                const isSelected = userAns === oIdx;
+                                const isCorrect = oIdx === item.ans;
+                                let btnStyle = "bg-white text-slate-700 border-slate-200 hover:bg-slate-100";
+                                
+                                if (userAns !== undefined) {
+                                    if (isCorrect) btnStyle = "bg-emerald-100 border-emerald-300 text-emerald-900 font-bold";
+                                    else if (isSelected) btnStyle = "bg-rose-100 border-rose-300 text-rose-900";
+                                }
+
+                                return `
+                                    <button onclick="handleReadingAnswer(${qIdx}, ${oIdx})" ${userAns !== undefined ? 'disabled' : ''} class="w-full text-left p-2.5 rounded-xl border text-xs font-semibold transition ${btnStyle}">
+                                        ${opt}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${userAns !== undefined ? `
+                            <p class="text-[11px] text-slate-500 italic mt-1 bg-white p-2 rounded-lg border border-slate-100">
+                                💡 ${item.exp}
+                            </p>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleReadingAnswer(qIdx, oIdx) {
+            readingUserAnswers.set(qIdx, oIdx);
+            const q = READING_QUESTIONS[qIdx];
+
+            if (oIdx === q.ans) {
+                playSoundEffect('correct');
+                userXP += 10;
+                document.getElementById('user-xp').innerText = userXP;
+            } else {
+                playSoundEffect('wrong');
+            }
+
+            const correctCount = Array.from(readingUserAnswers.entries()).filter(([idx, ans]) => READING_QUESTIONS[idx].ans === ans).length;
+            document.getElementById('reading-score').innerText = `${correctCount}/${READING_QUESTIONS.length} Resueltas`;
+
+            renderReadingQuestions();
+        }
+
+        // INITIALIZATION ON PAGE LOAD
+        window.onload = function() {
+            renderVocabulary();
+            loadQuestion(0);
+            loadBuilderSentence(0);
+            renderReadingQuestions();
+        };
+    </script>
+</body>
+</html>
